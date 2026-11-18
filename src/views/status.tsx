@@ -1,6 +1,8 @@
+import type { NightSummary } from '../digest/night-summaries.js';
 import type { Status } from '../status.js';
+import { NightList } from './night-list.js';
 
-export function StatusBoard({ status }: { status: Status }) {
+export function StatusBoard({ status, summaries }: { status: Status; summaries: readonly NightSummary[] }) {
   return (
     <>
       <h1>status</h1>
@@ -15,15 +17,7 @@ export function StatusBoard({ status }: { status: Status }) {
         </tbody>
       </table>
       <h2>nights on disk</h2>
-      {status.nights.length === 0 ? (
-        <p class="mute">nothing in runs/</p>
-      ) : (
-        <ul>
-          {status.nights.map((n) => (
-            <li>{n}</li>
-          ))}
-        </ul>
-      )}
+      <NightList summaries={summaries} />
     </>
   );
 }
